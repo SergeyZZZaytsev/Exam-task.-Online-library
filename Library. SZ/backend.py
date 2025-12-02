@@ -10,7 +10,7 @@ class Book(db.Model):
     title = db.Column(db.String(150), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(100), nullable=True)
+    description = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<Book {self.title} by {self.author}>'

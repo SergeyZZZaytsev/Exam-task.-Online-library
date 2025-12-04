@@ -10,9 +10,10 @@
 
   {% if mode == "books" %}
     <table>
-      <tr><th>Title</th><th>Author</th><th>Year</th><th>Action</th></tr>
+      <tr><th>Rank</th><th>Title</th><th>Author</th><th>Year</th><th>Action</th></tr>
       {% for book in items %}
         <tr>
+          <td>{{ book.rank }}</td>
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.year }}</td>
@@ -34,9 +35,10 @@
 
   {% elif mode == "magazines" %}
     <table>
-      <tr><th>Title</th><th>Issue</th><th>Publisher</th><th>Year</th><th>Action</th></tr>
+      <tr><th>Rank</th><th>Title</th><th>Issue</th><th>Publisher</th><th>Year</th><th>Action</th></tr>
       {% for magazine in items %}
         <tr>
+          <td>{{ magazine.rank }}</td>
           <td>{{ magazine.title }}</td>
           <td>{{ magazine.issue }}</td>
           <td>{{ magazine.publisher }}</td>
@@ -60,9 +62,10 @@
 
   {% elif mode == "films" %}
     <table>
-      <tr><th>Title</th><th>Director</th><th>Year</th><th>Genre</th><th>Action</th></tr>
+      <tr><th>Rank</th><th>Title</th><th>Director</th><th>Year</th><th>Genre</th><th>Action</th></tr>
       {% for film in items %}
         <tr>
+          <td>{{ film.rank }}</td>
           <td>{{ film.title }}</td>
           <td>{{ film.director }}</td>
           <td>{{ film.year }}</td>

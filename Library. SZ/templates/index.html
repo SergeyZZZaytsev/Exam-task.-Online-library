@@ -1,23 +1,87 @@
 {% extends "master.html" %}
 
-{% block head %}
-    <title>Online Library - Home</title>
-{% endblock %}
-
 {% block body %}
-    <div class = "content">
-        <h1>Welcome to the Online Library by Sergey Zaytsev</h1>
-        <table>
-            <tr>
-                <th>Books</th>  
-                <th>Films</th>
-                <th>Magazines</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>  
+  <h2>{{ mode|capitalize }}</h2>
+
+  <form method="GET" action="{{ request.path }}">
+    <input type="text" name="search" placeholder="Search {{ mode }}..." value="{{ request.args.get('search', '') }}">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if mode == "books" %}
+    <table>
+      <tr><th>Title</th><th>Author</th><th>Year</th><th>Action</th></tr>
+      {% for book in items %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.year }}</td>
+          <td>
+            <form action="/delete_book/{{ book.id }}" method="GET" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <form action="/books" method="POST">
+      <input name="title" placeholder="Title" required>
+      <input name="author" placeholder="Author" required>
+      <input type="number" name="year" placeholder="Year" required>
+      <button type="submit">Add Book</button>
+    </form>
+
+  {% elif mode == "magazines" %}
+    <table>
+      <tr><th>Title</th><th>Issue</th><th>Publisher</th><th>Year</th><th>Action</th></tr>
+      {% for magazine in items %}
+        <tr>
+          <td>{{ magazine.title }}</td>
+          <td>{{ magazine.issue }}</td>
+          <td>{{ magazine.publisher }}</td>
+          <td>{{ magazine.year }}</td>
+          <td>
+            <form action="/delete_magazine/{{ magazine.id }}" method="GET" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <form action="/magazines" method="POST">
+      <input name="title" placeholder="Title" required>
+      <input name="issue" placeholder="Issue" required>
+      <input name="publisher" placeholder="Publisher" required>
+      <input type="number" name="year" placeholder="Year" required>
+      <button type="submit">Add Magazine</button>
+    </form>
+
+  {% elif mode == "films" %}
+    <table>
+      <tr><th>Title</th><th>Director</th><th>Year</th><th>Genre</th><th>Action</th></tr>
+      {% for film in items %}
+        <tr>
+          <td>{{ film.title }}</td>
+          <td>{{ film.director }}</td>
+          <td>{{ film.year }}</td>
+          <td>{{ film.genre }}</td>
+          <td>
+            <form action="/delete_film/{{ film.id }}" method="GET" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <form action="/films" method="POST">
+      <input name="title" placeholder="Title" required>
+      <input name="director" placeholder="Director" required>
+      <input type="number" name="year" placeholder="Year" required>
+      <input name="genre" placeholder="Genre" required>
+      <button type="submit">Add Film</button>
+    </form>
+  {% endif %}
 {% endblock %}

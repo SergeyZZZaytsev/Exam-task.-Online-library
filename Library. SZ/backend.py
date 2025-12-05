@@ -158,7 +158,8 @@ def films():
         db.session.add(new_film)
         db.session.commit()
         return redirect('/films')
-
+    
+    search_q = request.args.get('search', '').strip()
     query = Film.query
     if search_q:
         query = query.filter(

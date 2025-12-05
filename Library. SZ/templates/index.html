@@ -8,6 +8,10 @@
     <button type="submit">Search</button>
   </form>
 
+ <a href="{{ request.path }}">
+  <button type="button">Clear search</button>
+</a>
+
   {% if mode == "books" %}
     <table>
       <tr><th>Rank</th><th>Title</th><th>Author</th><th>Year</th><th>Action</th></tr>

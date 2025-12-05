@@ -50,25 +50,30 @@ def books():
         db.session.add(new_book)
         db.session.commit()
         return redirect('/books')
-
     
-    title_q = request.args.get('title', '').strip()
-    year_q = request.args.get('year', '').strip()
-    author_q = request.args.get('author', '').strip()
-
+    search_q = request.args.get('search', '').strip()
     query = Book.query
-    if title_q:
-        query = query.filter(Book.title.ilike(f"%{title_q}%"))
-    if year_q:
-        try:
-            query = query.filter(Book.year == int(year_q))
-        except ValueError:
-            query = query.filter(False)
-    if author_q:
-        query = query.filter(Book.author.ilike(f"%{author_q}%"))
+    if search_q:
+        query = query.filter(
+            (Book.title.ilike(f"%{search_q}%")) |
+            (Book.author.ilike(f"%{search_q}%")) |
+            (Book.year.like(search_q))
+        )
 
     books = query.order_by(Book.rank).all()
-    return render_template('index.html', mode="books", items=books)
+
+    matched_ranks = [b.rank for b in books]
+    if matched_ranks:
+        message = f" Books with rank : {', '.join(map(str, matched_ranks))}"
+    else:
+        message = ("Nothing found")
+        
+    return render_template(
+        'index.html',
+        mode="books",
+        items=books,
+        message=message,
+        search_mode=bool(search_q))
 
 @library.route('/delete_book/<int:id>')
 def delete_book(id):
@@ -100,23 +105,29 @@ def magazines():
         db.session.commit()
         return redirect('/magazines')
 
-    title_q = request.args.get('title', '').strip()
-    year_q = request.args.get('year', '').strip()
-    publisher_q = request.args.get('publisher', '').strip()
-
+    search_q = request.args.get('search', '').strip()
     query = Magazine.query
-    if title_q:
-        query = query.filter(Magazine.title.ilike(f"%{title_q}%"))
-    if year_q:
-        try:
-            query = query.filter(Magazine.year == int(year_q))
-        except ValueError:
-            query = query.filter(False)
-    if publisher_q:
-        query = query.filter(Magazine.publisher.ilike(f"%{publisher_q}%"))
+    if search_q:
+        query = query.filter(
+            (Magazine.title.ilike(f"%{search_q}%")) |
+            (Magazine.publisher.ilike(f"%{search_q}%")) |
+            (Magazine.year.like(search_q))
+        )
 
     magazines = query.order_by(Magazine.rank).all()
-    return render_template('index.html', mode="magazines", items=magazines)
+
+    matched_ranks = [b.rank for b in magazines]
+    if matched_ranks:
+        message = f" Magazines with rank : {', '.join(map(str, matched_ranks))}"
+    else:
+        message = ("Nothing found")
+        
+    return render_template(
+        'index.html',
+        mode="magazines",
+        items=magazines,
+        message=message,
+        search_mode=bool(search_q))
 
 @library.route('/delete_magazine/<int:id>')
 def delete_magazine(id):
@@ -148,23 +159,28 @@ def films():
         db.session.commit()
         return redirect('/films')
 
-    title_q = request.args.get('title', '').strip()
-    year_q = request.args.get('year', '').strip()
-    director_q = request.args.get('director', '').strip()
-
     query = Film.query
-    if title_q:
-        query = query.filter(Film.title.ilike(f"%{title_q}%"))
-    if year_q:
-        try:
-            query = query.filter(Film.year == int(year_q))
-        except ValueError:
-            query = query.filter(False)
-    if director_q:
-        query = query.filter(Film.director.ilike(f"%{director_q}%"))
+    if search_q:
+        query = query.filter(
+            (Film.title.ilike(f"%{search_q}%")) |
+            (Film.director.ilike(f"%{search_q}%")) |
+            (Film.year.like(search_q))
+        )
 
     films = query.order_by(Film.rank).all()
-    return render_template('index.html', mode="films", items=films)
+
+    matched_ranks = [b.rank for b in films]
+    if matched_ranks:
+        message = f" Films with rank : {', '.join(map(str, matched_ranks))}"
+    else:
+        message = ("Nothing found")
+        
+    return render_template(
+        'index.html',
+        mode="films",
+        items=films,
+        message=message,
+        search_mode=bool(search_q))
 
 @library.route('/delete_film/<int:id>')
 def delete_film(id):

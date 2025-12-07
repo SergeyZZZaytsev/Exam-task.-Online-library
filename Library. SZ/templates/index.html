@@ -3,8 +3,8 @@
 {% block body %}
   <h2>{{ mode|capitalize }}</h2>
 
-  <form method="GET" action="{{ request.path }}">
-    <input type="text" name="search" placeholder="Search {{ mode }}..." value="{{ request.args.get('search', '') }}">
+  <form method="GET" action="{{ request.path }}" class="search-form">
+    <input type="text" name="search" placeholder="Please enter author/director/publisher/, year or title..." value="{{ request.args.get('search', '') }}">
     <button type="submit">Search</button>
   </form>
 
@@ -25,7 +25,7 @@
       {% endfor %}
     </table>
 
-    <form action="/books" method="POST">
+    <form action="/books" method="POST" class="add-form">
       <input name="title" placeholder="Title" required>
       <input name="author" placeholder="Author" required>
       <input type="number" name="year" placeholder="Year" required>
@@ -50,7 +50,7 @@
       {% endfor %}
     </table>
 
-    <form action="/magazines" method="POST">
+    <form action="/magazines" method="POST" class="add-form">
       <input name="title" placeholder="Title" required>
       <input name="issue" placeholder="Issue" required>
       <input name="publisher" placeholder="Publisher" required>
@@ -76,7 +76,7 @@
       {% endfor %}
     </table>
 
-    <form action="/films" method="POST">
+    <form action="/films" method="POST" class="add-form">
       <input name="title" placeholder="Title" required>
       <input name="director" placeholder="Director" required>
       <input type="number" name="year" placeholder="Year" required>

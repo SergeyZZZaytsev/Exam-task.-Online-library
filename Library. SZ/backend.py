@@ -196,6 +196,39 @@ def delete_film(id):
 
     return redirect('/films')
 
+# ----- GLOBAL SEARCH -----
+@library.route('/search', methods=['GET'])
+def search_all():
+    query = request.args.get("query", "").strip().lower()
+    results = []
+
+    if query:
+        # Books
+        for b in Book.query.filter(
+            (Book.title.ilike(f"%{query}%")) |
+            (Book.author.ilike(f"%{query}%")) |
+            (Book.year.like(query))
+        ).all():
+            results.append(("Books", b.title, f"/books"))
+
+        # Magazines
+        for m in Magazine.query.filter(
+            (Magazine.title.ilike(f"%{query}%")) |
+            (Magazine.publisher.ilike(f"%{query}%")) |
+            (Magazine.year.like(query))
+        ).all():
+            results.append(("Magazines", m.title, f"/magazines"))
+
+        # Films
+        for f in Film.query.filter(
+            (Film.title.ilike(f"%{query}%")) |
+            (Film.director.ilike(f"%{query}%")) |
+            (Film.year.like(query))
+        ).all():
+            results.append(("Films", f.title, f"/films"))
+
+    return render_template("index.html", mode="search", results=results, query=query)
+
 # ---------- INIT ----------
 if __name__ == '__main__':
     with library.app_context():

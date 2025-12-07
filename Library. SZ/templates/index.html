@@ -1,28 +1,26 @@
 {% extends "master.html" %}
 
 {% block body %}
-  {% if mode not in ["books", "magazines", "films"] %}
-  <h1 class="home-title"> Welcome to <span>Online Library</span></h1>
-
-  {% else %}
-  <h2>{{ mode|capitalize }}</h2>
+  {% if mode not in ["books", "magazines", "films", "search"] %}
+    <h1 class="home-title"> Welcome to <span>Online Library</span></h1>
+  {% elif mode in ["books", "magazines", "films"] %}
+    <h2>{{ mode|capitalize }}</h2>
+  {% elif mode == "search" %}
+    <h2>Search results for "{{ query }}"</h2>
   {% endif %}
 
+  {% if mode not in ["books", "magazines", "films", "search"] %}
+    <form method="GET" action="/search" class="search-form">
+      <input type="text" name="query" placeholder="Search in all sections..." value="{{ request.args.get('query', '') }}">
+      <br>
+      <button type="submit" class="search-btn">Search</button>
+      <br>
+      <button type="reset" class="clear-btn">Clear search</button>
+    </form>
 
-  <form method="GET" action="{{ request.path }}" class="search-form">
-    <input type="text" name="search" placeholder="Please enter author/director/publisher/, year or title..." value="{{ request.args.get('search', '') }}">
-    <button type="submit" class="search-btn">Search</button>
-  </form>
-
-<<<<<<< HEAD
- <a href="{{ request.path }}">
-  <button type="button">Clear search</button>
-</a>
-=======
-  {% if mode not in ["books", "magazines", "films"] %}
     <div class="instruction">
       <p>
-        The <strong>Online Library Service</strong> allows you to search for books, magazines, and films.
+        <strong>Online Library Service</strong> allows you to search for books, magazines, and films.
         You can use the main search bar on this page or perform a search within the corresponding section (Books, Magazines, Films).
       </p>
       <p>
@@ -34,9 +32,26 @@
       </ul>
     </div>
   {% endif %}
->>>>>>> Home-page-design
+
+  {% if mode == "search" %}
+    {% if results %}
+      <ul>
+        {% for section, title, link in results %}
+          <li>[{{ section }}] <a href="{{ link }}">{{ title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
+  {% endif %}
 
   {% if mode == "books" %}
+    <form method="GET" action="{{ request.path }}" class="search-form">
+      <input type="text" name="search" placeholder="Search books..." value="{{ request.args.get('search', '') }}">
+      <button type="submit" class="search-btn">Search</button>
+      <button type="button" onclick="window.location.href='{{ request.path }}'">Clear search</button>
+    </form>
+
     <table>
       <tr><th>Rank</th><th>Title</th><th>Author</th><th>Year</th><th>Action</th></tr>
       {% for book in items %}
@@ -47,7 +62,7 @@
           <td>{{ book.year }}</td>
           <td>
             <form action="/delete_book/{{ book.id }}" method="GET" style="display:inline;">
-              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this book?')"> Delete </button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this book?')">Delete</button>
             </form>
           </td>
         </tr>
@@ -60,8 +75,15 @@
       <input type="number" name="year" placeholder="Year" required>
       <button type="submit">Add Book</button>
     </form>
+  {% endif %}
 
-  {% elif mode == "magazines" %}
+  {% if mode == "magazines" %}
+    <form method="GET" action="{{ request.path }}" class="search-form">
+      <input type="text" name="search" placeholder="Search magazines..." value="{{ request.args.get('search', '') }}">
+      <button type="submit" class="search-btn">Search</button>
+      <button type="button" onclick="window.location.href='{{ request.path }}'">Clear search</button>
+    </form>
+
     <table>
       <tr><th>Rank</th><th>Title</th><th>Issue</th><th>Publisher</th><th>Year</th><th>Action</th></tr>
       {% for magazine in items %}
@@ -73,7 +95,7 @@
           <td>{{ magazine.year }}</td>
           <td>
             <form action="/delete_magazine/{{ magazine.id }}" method="GET" style="display:inline;">
-              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this magazine?')"> Delete </button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this magazine?')">Delete</button>
             </form>
           </td>
         </tr>
@@ -87,8 +109,15 @@
       <input type="number" name="year" placeholder="Year" required>
       <button type="submit">Add Magazine</button>
     </form>
+  {% endif %}
 
-  {% elif mode == "films" %}
+  {% if mode == "films" %}
+    <form method="GET" action="{{ request.path }}" class="search-form">
+      <input type="text" name="search" placeholder="Search films..." value="{{ request.args.get('search', '') }}">
+      <button type="submit" class="search-btn">Search</button>
+      <button type="button" onclick="window.location.href='{{ request.path }}'">Clear search</button>
+    </form>
+
     <table>
       <tr><th>Rank</th><th>Title</th><th>Director</th><th>Year</th><th>Genre</th><th>Action</th></tr>
       {% for film in items %}
@@ -100,7 +129,7 @@
           <td>{{ film.genre }}</td>
           <td>
             <form action="/delete_film/{{ film.id }}" method="GET" style="display:inline;">
-              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this film?')"> Delete </button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this film?')">Delete</button>
             </form>
           </td>
         </tr>

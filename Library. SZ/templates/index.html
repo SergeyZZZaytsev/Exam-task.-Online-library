@@ -5,8 +5,24 @@
 
   <form method="GET" action="{{ request.path }}" class="search-form">
     <input type="text" name="search" placeholder="Please enter author/director/publisher/, year or title..." value="{{ request.args.get('search', '') }}">
-    <button type="submit">Search</button>
+    <button type="submit" class="search-btn">Search</button>
   </form>
+
+  {% if mode not in ["books", "magazines", "films"] %}
+    <div class="instruction">
+      <p>
+        The <strong>Online Library Service</strong> allows you to search for books, magazines, and films.
+        You can use the main search bar on this page or perform a search within the corresponding section (Books, Magazines, Films).
+      </p>
+      <p>
+        The service also enables you to add and delete books, magazines, or films from the existing database:
+      </p>
+      <ul>
+        <li>To add a book, magazine, or film, go to the corresponding section and fill out the form in the top right corner.</li>
+        <li>To delete a book, magazine, or film, find the desired item in the corresponding section and click the <em>"Delete"</em> button.</li>
+      </ul>
+    </div>
+  {% endif %}
 
   {% if mode == "books" %}
     <table>
@@ -18,7 +34,7 @@
           <td>{{ book.year }}</td>
           <td>
             <form action="/delete_book/{{ book.id }}" method="GET" style="display:inline;">
-              <button type="submit">Delete</button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this book?')"> Delete </button>
             </form>
           </td>
         </tr>
@@ -43,7 +59,7 @@
           <td>{{ magazine.year }}</td>
           <td>
             <form action="/delete_magazine/{{ magazine.id }}" method="GET" style="display:inline;">
-              <button type="submit">Delete</button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this magazine?')"> Delete </button>
             </form>
           </td>
         </tr>
@@ -69,7 +85,7 @@
           <td>{{ film.genre }}</td>
           <td>
             <form action="/delete_film/{{ film.id }}" method="GET" style="display:inline;">
-              <button type="submit">Delete</button>
+              <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this film?')"> Delete </button>
             </form>
           </td>
         </tr>

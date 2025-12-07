@@ -1,7 +1,13 @@
 {% extends "master.html" %}
 
 {% block body %}
+  {% if mode not in ["books", "magazines", "films"] %}
+  <h1 class="home-title"> Welcome to <span>Online Library</span></h1>
+
+  {% else %}
   <h2>{{ mode|capitalize }}</h2>
+  {% endif %}
+
 
   <form method="GET" action="{{ request.path }}" class="search-form">
     <input type="text" name="search" placeholder="Please enter author/director/publisher/, year or title..." value="{{ request.args.get('search', '') }}">

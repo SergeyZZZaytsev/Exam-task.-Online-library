@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block head %}{% endblock %}
 </head>
-<body>
+<body class="{{ mode if mode else 'home' }}">
     <header>
-        <h1>Online Library</h1>
+        <h1></h1>
         <nav>
             <a href="/">Home</a> |
             <a href="/books">Books</a> |
@@ -23,7 +23,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Online Library</p>
+        <p> SRH. Advanced Programming. Sergey Zaytsev. Project: "Online Library"</p>
     </footer>
 </body>
 </html>

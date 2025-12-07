@@ -1,3 +1,7 @@
+main {
+    padding-bottom: 50px; 
+}
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -7,6 +11,318 @@ body {
 table, th, td {
     border: 1px solid black;   
     border-collapse: collapse; 
-    padding: 8px;              
+    padding: 8px;  
+}            
 
+body.home {
+    background-image: url("../img/home.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body.books {
+    background-image: url("../img/books.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body.magazines {
+    background-image: url("../img/magazines.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+body.films {
+    background-image: url("../img/films.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* TABLE STYLES */
+
+body.books table tr td:nth-child(odd),
+body.books table tr th:nth-child(odd) {
+    background-color: #5f5f5f8c; 
+}
+
+body.books table tr td:nth-child(even),
+body.books table tr th:nth-child(even) {
+    background-color: #a5a5a586; 
+}
+body.books table {
+    width: 80%;              
+    margin-top: 40px;        
+    border-collapse: collapse;
+}
+
+body.books th, 
+body.books td {
+    padding: 10px;           
+    text-align: left;
+}
+body.books table, 
+body.books th, 
+body.books td {
+    border: 2px solid #000;     
+    border-collapse: collapse;
+}
+
+body.magazines table tr td:nth-child(odd),
+body.magazines table tr th:nth-child(odd) {
+    background-color: #5f5f5f8c; 
+}
+
+body.magazines table tr td:nth-child(even),
+body.magazines table tr th:nth-child(even) {
+    background-color: #a5a5a586; 
+}
+body.magazines table {
+    width: 80%;                    
+    margin-top: 40px;        
+    border-collapse: collapse;
+}
+
+body.magazines th, 
+body.magazines td {
+    padding: 10px;           
+    text-align: left;
+}
+body.magazines table, 
+body.magazines th, 
+body.magazines td {
+    border: 2px solid #000;     
+    border-collapse: collapse;
+}
+
+body.films table tr td:nth-child(odd),
+body.films table tr th:nth-child(odd) {
+    background-color: #5f5f5f8c;
+}
+
+body.films table tr td:nth-child(even),
+body.films table tr th:nth-child(even) {
+    background-color: #a5a5a586;  
+}
+body.films table {
+    width: 80%;                    
+    margin-top: 40px;        
+    border-collapse: collapse;
+}
+
+body.films th, 
+body.films td {
+    padding: 10px;           
+    text-align: left;
+}
+body.films table, 
+body.films th, 
+body.films td {
+    border: 2px solid #000;     
+    border-collapse: collapse;
+}
+
+/* TEXT FORMAT */
+
+body.books th {
+    text-align: center;
+    font-weight: bold;          
+    font-size: 1.3em;           
+    text-transform: uppercase;  
+    color: #000000;                
+}
+
+body.books td {
+    font-size: 1.2em;             
+    color: #000000;                
+    line-height: 1.4;           
+}
+
+body.magazines th {
+    text-align: center;
+    font-weight: bold;          
+    font-size: 1.3em;           
+    text-transform: uppercase;  
+    color: #000000;                
+}
+
+body.magazines td {
+    font-size: 1.2em;             
+    color: #000000;                
+    line-height: 1.4;           
+}
+
+body.films th {
+    text-align: center;
+    font-weight: bold;          
+    font-size: 1.3em;           
+    text-transform: uppercase;  
+    color: #000000;                
+}
+
+body.films td {
+    font-size: 1.2em;             
+    color: #000000;                
+    line-height: 1.4;           
+}
+
+/* SPECIAL HEADERS */
+
+body.books header h1 {
+    color: #fc6501;
+}
+
+body.magazines header h1 {
+    color: #0010f6;
+}
+
+body.films header h1 {
+    color: #ffffff;   
+}
+
+body.books h2 {
+    color: #fc6501
+}
+
+body.films h2 {
+    color: #ffffff;
+}
+
+body.magazines h2 {
+    color: #0010f6;
+}
+
+/* SEARCH FORM*/
+.search-form {
+    text-align: center;   
+    margin: 20px 0;       
+}
+
+.search-form input[type="text"] {
+    width: 60%;           
+    padding: 10px;        
+    font-size: 1em;       
+    border: 2px solid #000;
+    border-radius: 6px;   
+}
+
+/* ADD FORM*/
+
+.add-form {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    float: right;              
+    width: 300px;              
+    margin: 1px;              
+    background-color: rgba(255, 255, 255, 0.85); 
+    padding: 15px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);   
+    
+/* Home title */
+}
+.home-title {
+  font-size: 2.2em;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #2c3e50;              
+  letter-spacing: 1px;
+}
+
+.home-title span {
+  color: #3498db;              
+}
+
+.home-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #3498db;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* FOOTER*/
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    background-color: #2a2a2a;
+    color: #ffffff;
+    text-align: center;
+
+    padding: 2px 6px;   
+    font-size: 0.8em;   
+    line-height: 1.1;   
+    border-top: 1px solid #000;
+}
+
+/* Home page instruction*/
+.instruction {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    line-height: 1.4;
+}
+.instruction ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  display: block;              
+  margin: 0 auto;              
+  padding: 8px 16px;
+  background-color: #e74c3c;   
+  color: #fff;                 
+  border: none;                
+  border-radius: 6px;          
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;   
+  transform: scale(1.05);      
+}
+
+.delete-btn:active {
+  transform: scale(0.95);      
+}
+
+/* Search BUTTON */
+.search-btn {
+  padding: 10px 20px;
+  background-color: #3498db;   
+  color: #fff;                 
+  border: none;                
+  border-radius: 6px;          
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #2980b9;   
+  transform: scale(1.05);      
+}
+
+.search-btn:active {
+  transform: scale(0.95);      
 }
